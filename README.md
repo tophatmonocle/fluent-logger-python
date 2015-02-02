@@ -1,5 +1,7 @@
 # A Python structured logger for Fluentd
 
+[![Build Status](https://travis-ci.org/EvaSDK/fluent-logger-python.svg?branch=master)](https://travis-ci.org/EvaSDK/fluent-logger-python)
+[![Coverage Status](https://coveralls.io/repos/EvaSDK/fluent-logger-python/badge.png)](https://coveralls.io/r/EvaSDK/fluent-logger-python)
 
 Many web/mobile applications generate huge amount of event logs (c,f. login, logout, purchase, follow, etc). To analyze these event logs could be really valuable for improving the service. However, the challenge is collecting these logs easily and reliably.
 
@@ -19,12 +21,14 @@ This library is distributed as 'fluent-logger' python package. Please execute th
 
 ## Configuration
 
-Fluentd daemon must be lauched with the following configuration:
+Fluentd daemon must be launched with a tcp source configuration:
 
     <source>
-      type tcp
+      type forward
       port 24224
     </source>
+
+To quickly test your setup, add a matcher that logs to the stdout:
 
     <match app.**>
       type stdout
@@ -58,7 +62,7 @@ Then, please create the events like this. This will send the event to fluent, wi
 
 ### Python logging.Handler interface
 
-This client-library also has FluentHanler class for Python logging module.
+This client-library also has FluentHandler class for Python logging module.
 
     import logging
     from fluent import handler
@@ -70,6 +74,10 @@ This client-library also has FluentHanler class for Python logging module.
       'from': 'userA',
       'to': 'userB'
     })
+
+## Testing
+
+Testing can be done using [nose](https://nose.readthedocs.org/en/latest/).
     
 ## Contributors
 

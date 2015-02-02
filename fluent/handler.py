@@ -5,8 +5,13 @@ import socket
 
 try:
     import simplejson as json
-except ImportError:
+except ImportError:  # pragma: no cover
     import json
+
+try:
+    basestring
+except NameError:  # pragma: no cover
+    basestring = (str, bytes)
 
 from fluent import sender
 
@@ -38,7 +43,7 @@ class FluentRecordFormatter(object):
         elif isinstance(msg, str):
             try:
                 self._add_dic(data, json.loads(str(msg)))
-            except (ValueError, json.JSONDecodeError):
+            except ValueError:
                 pass
 
     @staticmethod
